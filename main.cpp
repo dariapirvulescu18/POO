@@ -32,7 +32,7 @@ public:
 
 
 
-    leguma& operator=(const leguma& other) {
+    leguma& operator = (const leguma& other) {
         nume = other.nume;
         cantitate = other.cantitate;
         daysToHarvest=other.daysToHarvest;
@@ -113,10 +113,10 @@ class pamant{
 
 public:
     friend std::ostream& operator<<(std::ostream& os, const pamant& p) {
-        for (auto l: p.leg)
+        for (const auto & l: p.leg)
             os<< l<<" ";
         os<<"\n";
-        for (auto f :p.fru)
+        for (const  auto &f :p.fru)
             os<< f<< " ";
         os<<"\n";
         return os;
