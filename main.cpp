@@ -121,7 +121,7 @@ public:
         os<<"\n";
         return os;
     }
-    explicit pamant (const leguma& leg_, const fruct fru_) : leg{leg_}, fru{fru_} {}
+    explicit pamant (const leguma& leg_, const fruct & fru_) : leg{leg_}, fru{fru_} {}
 
 
 };
