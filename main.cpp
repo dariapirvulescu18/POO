@@ -5,7 +5,7 @@
 class leguma{
 private:
     std::string nume;
-    int daysToHarvest,cantitate,dayspassed;
+    int cantitate,daysToHarvest,dayspassed;
     bool isReadyToHarvest;
 
 public:
@@ -54,7 +54,7 @@ public:
     }
 
     leguma(const leguma &other) : nume{other.nume}, cantitate{other.cantitate},
-    dayspassed{other.dayspassed},daysToHarvest{other.daysToHarvest}, isReadyToHarvest{other.isReadyToHarvest}{}
+    daysToHarvest{other.daysToHarvest},dayspassed{other.dayspassed}, isReadyToHarvest{other.isReadyToHarvest}{}
     ~leguma() {
         std::cout<<"am distrus"<<"\n";
     }
@@ -116,7 +116,7 @@ public:
         for (const auto & l: p.leg)
             os<< l<<" ";
         os<<"\n";
-        for (const  auto &f :p.fru)
+        for (const  auto & f :p.fru)
             os<< f<< " ";
         os<<"\n";
         return os;
