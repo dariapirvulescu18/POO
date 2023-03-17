@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 class leguma{
@@ -46,7 +47,7 @@ public:
         return os;
     }
 
-    leguma(const std::string &nume_,  int daysto_) : nume{nume_},daysToHarvest{daysto_} {
+    leguma(std::string nume_,  int daysto_) : nume{std::move(nume_)},daysToHarvest{daysto_} {
         cantitate=0;
         dayspassed=0;
         isReadyToHarvest= false;
@@ -82,42 +83,42 @@ public:
 
 class animal {
     std::string rasa;
-    int products,dayswithoutfood,needtoeat;
-    bool hungry,energy;
+    int products, dayswithoutfood, needtoeat;
+    bool hungry, energy;
 public:
-    void hungryy()
-    { dayswithoutfood++;
-        products-=10;
-        if(dayswithoutfood==needtoeat)
-            hungry= true, products-=100;
-        if(hungry && dayswithoutfood >= needtoeat * 2)
-            energy=false;
+    void hungryy() {
+        dayswithoutfood++;
+        products -= 10;
+        if (dayswithoutfood == needtoeat)
+            hungry = true, products -= 100;
+        if (hungry && dayswithoutfood >= needtoeat * 2)
+            energy = false;
 
     }
 
-    int gain()
-    {    if (!energy) {
+    int gain() {
+        if (!energy) {
             std::cout << "The animal is dead!" << "\n";
             return 0;
         }
-        if(hungry)
-        {   std::cout << "The animal is hungry!" << "\n";
+        if (hungry) {
+            std::cout << "The animal is hungry!" << "\n";
             return 0;
         }
 
-        if(products>0){
-            std::cout <<"The " << rasa << " gave you " << products <<"!"<<"\n";
+        if (products > 0) {
+            std::cout << "The " << rasa << " gave you " << products << "!" << "\n";
             return products;
         }
+        return 0;
     }
-
 
 
     friend std::ostream& operator<<(std::ostream& os, const animal& anim) {
         os<< anim.rasa<< " "<< anim.products << anim.dayswithoutfood << anim.needtoeat << anim.hungry << anim.energy<<"\n";
         return os;
     }
-    animal(const std::string &rasa_, int nte) : rasa{rasa_},needtoeat{nte} {
+    animal(std::string rasa_, int nte) : rasa{std::move(rasa_)},needtoeat{nte} {
         products=100*needtoeat;
         dayswithoutfood=0;
         hungry=false;
@@ -126,19 +127,19 @@ public:
     const std::string & getName() {
         return rasa;
     }
-    int getproducts()
+    int getproducts() const
     {
         return products;
     }
-    bool getdead()
+    bool getdead() const
     {
         return energy;
     }
-    bool gethungry()
+    bool gethungry() const
     {
         return hungry;
     }
-    int getdays()
+    int getdays() const
     {
         return dayswithoutfood;
     }
@@ -154,10 +155,11 @@ public:
         os<< une.denumire<< " " << une.numar <<"\n";
         return os;
     }
-    unealta(std::string denumire_, int numar_) : denumire{std::move(denumire_)}, numar{numar_}  { }
+
+    [[maybe_unused]] unealta(std::string denumire_, int numar_) : denumire{std::move(denumire_)}, numar{numar_}  { }
 
 };
-class ferma {
+class [[maybe_unused]] ferma {
     std::string custi_animale;
     unealta unelt;
 public:
@@ -165,10 +167,11 @@ public:
         os<< fe.custi_animale<< " " << fe.unelt<<"\n";
         return os;
     }
-    ferma(std::string custi, unealta u) : custi_animale{std::move(custi)}, unelt{std::move(u)} {}
+
+    [[maybe_unused]] ferma(std::string custi, unealta u) : custi_animale{std::move(custi)}, unelt{std::move(u)} {}
 };
 
-class pamant{
+class [[maybe_unused]] pamant{
     std::vector<leguma> leg;
     std::vector<fruct> fru;
 
@@ -182,7 +185,8 @@ public:
         os<<"\n";
         return os;
     }
-    explicit pamant (const leguma& leg_, const fruct & fru_) : leg{leg_}, fru{fru_} {}
+
+    [[maybe_unused]] explicit pamant (const leguma& leg_, const fruct & fru_) : leg{leg_}, fru{fru_} {}
 
 
 };
@@ -193,7 +197,7 @@ class player{
 public:
     player(const std::vector<leguma> &leg, const std::vector<animal> &anim) : leg(leg), anim(anim) {}
 
-    int money(){
+    void money(){
         for(auto &l:leg)
         { money_+=10*l.getquantity();
             points+=l.getquantity();
@@ -215,8 +219,7 @@ public:
             }
         }
         std::cout<<"You have gained "<<money_<<" money and "<<points<<" points"<<"\n";
-        return money_;
-        return points;
+
     }
 
     friend std::ostream& operator<<(std::ostream& os, const player& p) {
@@ -228,7 +231,8 @@ public:
         os<<"\n";
         return os;
     }
-    explicit player (const leguma& leg_, const animal & anim_) : leg{leg_}, anim{anim_} {
+
+    [[maybe_unused]] explicit player (const leguma& leg_, const animal & anim_) : leg{leg_}, anim{anim_} {
         money_=0;
         points=0;
 
@@ -245,6 +249,7 @@ int main()
     animal gaina("chiken",3);
     leguma l1("l1",5),l2(l1),l3("l3",6);
     l3=l2;
+    l2.grow();
     std::cout<<l1<<" "<<l2<<" "<<l3<<"\n";
 
     std::cout << "You have planted " << cartof.getName() << " and " << rosie.getName() << "." <<"\n";
