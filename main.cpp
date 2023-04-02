@@ -10,7 +10,6 @@ private:
     bool isReadyToHarvest;
 
 public:
-
     void grow() {
         dayspassed++;
         cantitate+=dayspassed*daysToHarvest;
@@ -67,6 +66,12 @@ public:
     [[nodiscard]] bool getready() const{
         return isReadyToHarvest;
     }
+    int getdays1() const {
+        return daysToHarvest;
+    }
+    int getdays2() const {
+        return dayspassed;
+    }
 };
 
 class fruct {
@@ -86,7 +91,7 @@ class animal {
     int products, dayswithoutfood, needtoeat;
     bool hungry, energy;
 public:
-    void hungryy() {
+    void become_hungry() {
         dayswithoutfood++;
         products -= 10;
         if (dayswithoutfood == needtoeat)
@@ -95,7 +100,6 @@ public:
             energy = false;
 
     }
-
     int gain() {
         if (!energy) {
             std::cout << "The animal is dead!" << "\n";
@@ -145,59 +149,15 @@ public:
     }
 };
 
-
-
-class unealta{
-    std::string denumire;
-    int numar;
-public:
-    friend std::ostream& operator<<(std::ostream& os, const unealta& une) {
-        os<< une.denumire<< " " << une.numar <<"\n";
-        return os;
-    }
-
-    [[maybe_unused]] unealta(std::string denumire_, int numar_) : denumire{std::move(denumire_)}, numar{numar_}  { }
-
-};
-class [[maybe_unused]] ferma {
-    std::string custi_animale;
-    unealta unelt;
-public:
-    friend std::ostream& operator<<(std::ostream& os, const ferma& fe) {
-        os<< fe.custi_animale<< " " << fe.unelt<<"\n";
-        return os;
-    }
-
-    [[maybe_unused]] ferma(std::string custi, unealta u) : custi_animale{std::move(custi)}, unelt{std::move(u)} {}
-};
-
-class [[maybe_unused]] pamant{
-    std::vector<leguma> leg;
-    std::vector<fruct> fru;
-
-public:
-    friend std::ostream& operator<<(std::ostream& os, const pamant& p) {
-        for (const auto & l: p.leg)
-            os<< l<<" ";
-        os<<"\n";
-        for (const  auto & f :p.fru)
-            os<< f<< " ";
-        os<<"\n";
-        return os;
-    }
-
-    [[maybe_unused]] explicit pamant (const leguma& leg_, const fruct & fru_) : leg{leg_}, fru{fru_} {}
-
-
-};
 class player{
     std::vector<leguma> leg;
     std::vector<animal> anim;
     int money_{}, points{};
+
 public:
     player(const std::vector<leguma> &leg, const std::vector<animal> &anim) : leg(leg), anim(anim) {}
 
-    void money(){
+    void gain_money(){
         for(auto &l:leg)
         { money_+=10*l.getquantity();
             points+=l.getquantity();
@@ -221,7 +181,10 @@ public:
         std::cout<<"You have gained "<<money_<<" money and "<<points<<" points"<<"\n";
 
     }
-
+    int updateMoney(int amount) {
+        money_ = amount;
+        return money_;
+    }
     friend std::ostream& operator<<(std::ostream& os, const player& p) {
         for (const auto & l: p.leg)
             os<< l<<" ";
@@ -237,7 +200,132 @@ public:
         points=0;
 
     }
+    int getmoney() const
+    {
+        return money_;
+    }
 
+};
+class unealta{
+    std::string denumire;
+    int numar,object_price,new_money;
+    player &anonimus;
+    bool want,bought;
+public:
+    void buy()
+    { new_money=anonimus.getmoney();
+        if(want and anonimus.getmoney() > object_price * numar) {
+            new_money -= object_price * numar;
+            std::cout<<"You have purchased "<<numar<<" "<<denumire<<" and now have "<<new_money<<" money !"<<"\n";
+            bought=true;
+            anonimus.updateMoney(new_money);
+        }
+        else {
+            while(object_price*numar>anonimus.getmoney())
+                    numar--;
+            if(numar!=0 and want== true)
+            {
+                new_money -= object_price * numar;
+                std::cout << "You have purchased " << numar << " " << denumire << " and lost " << new_money << " money !"<< "\n";
+                bought=true;
+                anonimus.updateMoney(new_money);
+            }
+            else
+                std::cout<<"You can't buy this item!"<<"\n";
+    }
+
+    }
+    friend std::ostream& operator<<(std::ostream& os, const unealta& une) {
+        os<< une.denumire<< " " << une.numar <<"\n";
+        return os;
+    }
+
+    unealta(std::string denumire_ , player &anonimus_, int numar_, int object_price_, bool want_) :
+    denumire{denumire_},anonimus{anonimus_},numar{numar_}, object_price{object_price_} ,want{want_} {
+
+        bought=false;
+    }
+    bool getBought()
+    {
+        return bought;
+    }
+};
+class  ferma {
+    std::vector<unealta> crafty;
+    std::vector<animal> farm_animal;
+    bool ok;
+    std::string nume;
+public:
+    void build()
+    {
+        for( auto &a:farm_animal) {
+                ok=true;
+            for (auto &u: crafty)
+                if(!u.getBought())
+                    ok=false;
+            if(ok)
+            {
+                std::cout << "The animal " << a.getName() << " now has a home!" << "\n";
+            }
+            else
+                std::cout<<"You don't have enough crafts to build this animal a home:(("<<"\n";
+
+        }
+
+    }
+
+    ferma (std::vector<unealta> &crafty_,std::vector<animal> &ani, bool ok_) : crafty{crafty_},farm_animal{ani},ok{ok_} {
+
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const ferma& f) {
+        for (const auto & c: f.crafty)
+            os<<c<<" ";
+        os<<"\n";
+        for (const  auto & f :f.farm_animal)
+            os<< f<< " ";
+        os<<"\n";
+        return os;
+    }
+
+
+};
+
+class pamant{
+    std::vector<leguma> leg;
+    player & farmer;
+    bool ok;
+    int new_money;
+
+public:
+    void growfaster(){
+        new_money=farmer.getmoney();
+        for(const auto &l:leg)
+            {
+            if(!l.getready() and farmer.getmoney() > 100 * l.getdays1() and ok)
+                  {
+                        new_money -= 100 * ( l.getdays1()-l.getdays2() );
+                        std::cout<<"Now you have "<<new_money<<" money !"<<"\n";
+                        farmer.updateMoney(new_money);
+                    }
+            else
+                        std::cout<<"You can't speed up the process!"<<"\n";
+
+            }
+
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const pamant& p) {
+        for (const auto & l: p.leg)
+            os<< l<<" ";
+        os<<"\n";
+
+        return os;
+    }
+
+    explicit pamant (std::vector<leguma>& leg_,  player &farmer_, bool ok_) : leg{leg_}, farmer{farmer_},ok{ok_}{
+
+    }
 
 
 };
@@ -264,8 +352,8 @@ int main()
     std::cout<<"You have in your farm a "<< vaca.getName()<< " and a " << gaina.getName() << "."<<"\n";
     for (int i =0;i<19;i++)
     {
-        vaca.hungryy();
-        gaina.hungryy();
+        vaca.become_hungry();
+        gaina.become_hungry();
     }
     vaca.gain();
     gaina.gain();
@@ -280,7 +368,21 @@ int main()
     farmanimal.push_back(gaina);
 
     player Alex(vegetable,farmanimal);
-    Alex.money();
+    Alex.gain_money();
+    unealta lopata("shovels",Alex,5,145,true);
+    unealta ciocan("hammers",Alex,4,100, true);
+    unealta cuie("nails",Alex,10,50,true);
+    lopata.buy();
+    ciocan.buy();
+    cuie.buy();
+    std::vector<unealta> crafts;
+    crafts.push_back(lopata);
+    crafts.push_back(ciocan);
+    crafts.push_back(cuie);
+    ferma LOLA (crafts,farmanimal,true);
+    LOLA.build();
+    pamant fertil(vegetable,Alex,true);
+    fertil.growfaster();
 
     return 0;
 

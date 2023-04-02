@@ -8,7 +8,7 @@
 ## Tema 1
 
 #### Cerințe
-- [ ] definirea a minim 3-4 clase folosind compunere
+- [X] definirea a minim 3-4 clase folosind compunere
 - [ ] constructori de inițializare
 - [ ] pentru o clasă: constructor de copiere, `operator=` de copiere, destructor
 <!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
