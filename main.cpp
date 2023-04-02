@@ -209,9 +209,11 @@ public:
 };
 class unealta{
     std::string denumire;
-    int numar,object_price,new_money{};
     player &anonimus;
-    bool want,bought;
+    int numar,object_price;
+    bool want;
+    int new_money{};
+    bool bought;
 public:
     void buy()
     { new_money=anonimus.getmoney();
