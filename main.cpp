@@ -285,8 +285,8 @@ public:
         for (const auto & c: z.crafty)
             os<<c<<" ";
         os<<"\n";
-        for (const  auto & z :z.farm_animal)
-            os<< z<< " ";
+        for (const  auto & g :z.farm_animal)
+            os<< g<< " ";
         os<<"\n";
         return os;
     }
