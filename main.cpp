@@ -66,15 +66,15 @@ public:
     [[nodiscard]] bool getready() const{
         return isReadyToHarvest;
     }
-    int getdays1() const {
+    [[nodiscard]] int getdays1() const {
         return daysToHarvest;
     }
-    int getdays2() const {
+    [[nodiscard]] int getdays2() const {
         return dayspassed;
     }
 };
 
-class fruct {
+class [[maybe_unused]] fruct {
     std::string tip;
     int kg;
 public:
@@ -82,7 +82,8 @@ public:
         os<< fr.tip<< " " << fr.kg <<"\n";
         return os;
     }
-    fruct(std::string tip_, int kg_) : tip{std::move(tip_)}, kg{kg_} {}
+
+    [[maybe_unused]] fruct(std::string tip_, int kg_) : tip{std::move(tip_)}, kg{kg_} {}
 
 };
 
@@ -131,19 +132,19 @@ public:
     const std::string & getName() {
         return rasa;
     }
-    int getproducts() const
+    [[nodiscard]] int getproducts() const
     {
         return products;
     }
-    bool getdead() const
+    [[nodiscard]] bool getdead() const
     {
         return energy;
     }
-    bool gethungry() const
+    [[nodiscard]] bool gethungry() const
     {
         return hungry;
     }
-    int getdays() const
+    [[nodiscard]] int getdays() const
     {
         return dayswithoutfood;
     }
@@ -200,7 +201,7 @@ public:
         points=0;
 
     }
-    int getmoney() const
+    [[nodiscard]] int getmoney() const
     {
         return money_;
     }
@@ -208,7 +209,7 @@ public:
 };
 class unealta{
     std::string denumire;
-    int numar,object_price,new_money;
+    int numar,object_price,new_money{};
     player &anonimus;
     bool want,bought;
 public:
@@ -223,7 +224,7 @@ public:
         else {
             while(object_price*numar>anonimus.getmoney())
                     numar--;
-            if(numar!=0 and want== true)
+            if(numar!=0 and want)
             {
                 new_money -= object_price * numar;
                 std::cout << "You have purchased " << numar << " " << denumire << " and lost " << new_money << " money !"<< "\n";
@@ -241,11 +242,11 @@ public:
     }
 
     unealta(std::string denumire_ , player &anonimus_, int numar_, int object_price_, bool want_) :
-    denumire{denumire_},anonimus{anonimus_},numar{numar_}, object_price{object_price_} ,want{want_} {
+    denumire{std::move(denumire_)},anonimus{anonimus_},numar{numar_}, object_price{object_price_} ,want{want_} {
 
         bought=false;
     }
-    bool getBought()
+    [[nodiscard]] bool getBought() const
     {
         return bought;
     }
@@ -278,12 +279,12 @@ public:
 
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const ferma& f) {
-        for (const auto & c: f.crafty)
+    friend std::ostream& operator<<(std::ostream& os, const ferma& z) {
+        for (const auto & c: z.crafty)
             os<<c<<" ";
         os<<"\n";
-        for (const  auto & f :f.farm_animal)
-            os<< f<< " ";
+        for (const  auto & z :z.farm_animal)
+            os<< z<< " ";
         os<<"\n";
         return os;
     }
@@ -295,7 +296,7 @@ class pamant{
     std::vector<leguma> leg;
     player & farmer;
     bool ok;
-    int new_money;
+    int new_money{};
 
 public:
     void growfaster(){
