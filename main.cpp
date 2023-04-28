@@ -83,7 +83,7 @@ int main() {
     pamant fertil(vegetable, Alex, true);
     fertil.growfaster();
     LOLA.vaca_sound();
-    auto a = MILKA->clone();
+//    auto a = MILKA->clone();
     MILKA->move();
     PUFI->move();
     return 0;

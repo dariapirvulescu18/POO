@@ -57,8 +57,8 @@ std::ostream &operator<<(std::ostream &os, const ferma &z) {
 
 void ferma::vaca_sound() {
     for (auto &animal: farm_animal) {
-        if (auto cur = std::dynamic_pointer_cast<vaca>(animal)) {
-            std::cout << "moo" << "\n";
+        if (auto v = std::dynamic_pointer_cast<vaca>(animal)) {
+            v->move();
         }
     }
 }
