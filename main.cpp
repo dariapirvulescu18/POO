@@ -166,10 +166,15 @@ int main() {
 
     std::shared_ptr<vaca> MILKA = std::make_shared<vaca>("Milka", 3, vegetable);
     MILKA->feed();
+    MILKA->gain();
+    MILKA->become_hungry();
+
     std::shared_ptr<vaca> LILY = std::make_shared<vaca>("Lily", 3, vegetable);
 
     std::shared_ptr<caine> PUFI = std::make_shared<caine>("pufi", 4, 3);
     PUFI->gain();
+
+
     for (int i = 0; i < 8; i++) {
         PUFI->become_hungry();
     }
