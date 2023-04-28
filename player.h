@@ -24,7 +24,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const player &p);
 
-    explicit player(const std::vector<leguma> &leg_, const std::vector<std::shared_ptr<animal>> &anim_);
+    explicit player(const std::vector<leguma> &leg_, std::vector<std::shared_ptr<animal>> anim_);
 
     [[nodiscard]] int getmoney() const;
 

@@ -6,7 +6,6 @@
 
 void animal::move() const {}
 
-std::shared_ptr<animal> animal::clone() const {}
 
 void animal::become_hungry() {
     dayswithoutfood++;

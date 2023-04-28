@@ -9,135 +9,8 @@
 #include "unealta.h"
 #include "ferma.h"
 #include "pamant.h"
-#include "ext/indicators.h"
-
-
-class vaca : public animal {
-    std::vector<leguma> leg;
-    bool fed;
-public:
-    explicit vaca(const std::string &rasa = "cow", int nte = 3, const std::vector<leguma> &l = std::vector<leguma>())
-            : animal(rasa, nte), leg(l) {
-        fed = false;
-    }
-
-    [[nodiscard]] std::shared_ptr<animal> clone() const override { return std::make_shared<vaca>(*this); }
-
-    ~vaca() override {
-        std::cout << "destructor vaca" << "\n";
-    }
-
-    void feed() override {
-        if (leg.size() == 3) {
-            fed = true;
-            std::cout << "The cow has been fed!" << "\n";
-        }
-
-    }
-
-    void move() const override {
-        if (fed) {
-            indicators::IndeterminateProgressBar bar{
-                    indicators::option::BarWidth{40},
-                    indicators::option::Start{"👩‍🌾"},
-                    indicators::option::Fill{"·"},
-                    indicators::option::Lead{"🐮"},
-                    indicators::option::End{"👨‍🌾"},
-                    indicators::option::PostfixText{"happy cow"},
-                    indicators::option::ForegroundColor{indicators::Color::yellow},
-                    indicators::option::FontStyles{
-                            std::vector<indicators::FontStyle>{indicators::FontStyle::bold}}
-            };
-
-            indicators::show_console_cursor(false);
-
-            auto job = [&bar]() {
-                std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-                bar.mark_as_completed();
-                std::cout << termcolor::bold << termcolor::green
-                          << "THE COW IS DONE WALKING\n" << termcolor::reset;
-            };
-            std::thread job_completion_thread(job);
-
-            // Update bar state
-            while (!bar.is_completed()) {
-                bar.tick();
-                std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            }
-
-            job_completion_thread.join();
-
-            indicators::show_console_cursor(true);
-        }
-    }
-
-};
-
-class caine : public animal {
-    int days_to_defend;
-    bool happy;
-
-public:
-    explicit caine(const std::string &rasa = "dog", int nte = 4, int days_to_defend = 0) : animal(rasa, nte),
-                                                                                           days_to_defend(
-                                                                                                   days_to_defend) {
-        happy = false;
-    }
-
-
-    [[nodiscard]] std::shared_ptr<animal> clone() const override { return std::make_shared<caine>(*this); }
-
-    ~caine() override {
-        std::cout << "destructor caine" << "\n";
-    }
-
-    int gain() override {
-        if (days_to_defend <= 4) {
-            happy = true;
-            std::cout << "The farm is protected" << "\n";
-            return 0;
-        }
-        return 1;
-    }
-
-    void move() const override {
-        if (happy) {
-            indicators::IndeterminateProgressBar bar{
-                    indicators::option::BarWidth{40},
-                    indicators::option::Start{"🌳"},
-                    indicators::option::Fill{"."},
-                    indicators::option::Lead{"🐶"},
-                    indicators::option::End{"🌳"},
-                    indicators::option::PostfixText{"happy dog"},
-                    indicators::option::ForegroundColor{indicators::Color::blue},
-                    indicators::option::FontStyles{
-                            std::vector<indicators::FontStyle>{indicators::FontStyle::bold}}
-            };
-
-            indicators::show_console_cursor(false);
-
-            auto job = [&bar]() {
-                std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-                bar.mark_as_completed();
-                std::cout << termcolor::bold << termcolor::magenta
-                          << "THE DOG IS DONE PROTECTING THE FARM\n" << termcolor::reset;
-            };
-            std::thread job_completion_thread(job);
-
-            // Update bar state
-            while (!bar.is_completed()) {
-                bar.tick();
-                std::this_thread::sleep_for(std::chrono::milliseconds(80));
-            }
-
-            job_completion_thread.join();
-
-            indicators::show_console_cursor(true);
-
-        }
-
-    }
-};
+#include "vaca.h"
+#include "caine.h"
 
 
 int main() {
@@ -209,6 +82,8 @@ int main() {
     LOLA.build();
     pamant fertil(vegetable, Alex, true);
     fertil.growfaster();
+    LOLA.vaca_sound();
+    auto a = MILKA->clone();
     MILKA->move();
     PUFI->move();
     return 0;

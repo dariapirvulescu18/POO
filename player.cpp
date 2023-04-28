@@ -5,8 +5,9 @@
 #include "player.h"
 
 
-player::player(const std::vector<leguma> &leg_, const std::vector<std::shared_ptr<animal>> &anim_) : leg{leg_},
-                                                                                                     anim{anim_} {
+player::player(const std::vector<leguma> &leg_, std::vector<std::shared_ptr<animal>> anim_) :
+        leg(leg_),
+        anim(std::move(anim_)) {
     money_ = 0;
     points = 0;
 
