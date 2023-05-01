@@ -61,8 +61,8 @@ void ferma::test_dynamic_cast() {
     }
 }
 
-[[maybe_unused]] std::basic_string<char> ferma::getnume() const {
-    return nume;
-}
+//[[maybe_unused]] std::basic_string<char> ferma::getnume() const {
+//    return nume;
+//}
 
 

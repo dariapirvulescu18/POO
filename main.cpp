@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-//#include <utility>
+//#include <stdexcept>
 #include <memory>
 #include "leguma.h"
 #include "animal.h"
@@ -12,6 +12,13 @@
 #include "vaca.h"
 #include "caine.h"
 
+//class eroare_stringuri :public std::runtime_error
+//{
+//    using std::runtime_error::runtime_error;
+//};
+//class eroare_numere: public std::logic_error{
+//    using std::logic_error::logic_error;
+//};
 
 int main() {
     leguma cartof("potato", 3);

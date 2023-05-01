@@ -32,7 +32,7 @@ public:
 
     void test_dynamic_cast();
 
-    [[maybe_unused]] [[nodiscard]] std::basic_string<char> getnume() const;
+//    [[maybe_unused]] [[nodiscard]] std::basic_string<char> getnume() const;
 
 };
 
