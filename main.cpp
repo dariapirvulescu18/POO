@@ -78,14 +78,19 @@ int main() {
     crafts.push_back(lopata);
     crafts.push_back(ciocan);
     crafts.push_back(cuie);
-    ferma LOLA(crafts, farmanimal, true);
+    ferma LOLA("LOLA", crafts, farmanimal, true);
     LOLA.build();
     pamant fertil(vegetable, Alex, true);
     fertil.growfaster();
-    LOLA.vaca_sound();
-//    auto a = MILKA->clone();
+
+
     MILKA->move();
     PUFI->move();
+    LOLA.test_dynamic_cast();
+//    player HAYDAY("HAYDAY",crafts,farmanimal,true),f1(HAYDAY);
+//    HAYDAY=LOLA;
+//    std::cout<<HAYDAY.getnume()<<f1.getnume()<<"\n";
+
     return 0;
 
 }

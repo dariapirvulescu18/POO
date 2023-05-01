@@ -58,3 +58,22 @@ std::ostream &operator<<(std::ostream &os, const player &p) {
     return money_;
 }
 
+[[maybe_unused]] player::player(const player &other) : money_(other.money_), points(other.points) {
+    for (const auto &a: other.anim)
+        anim.emplace_back(a->clone());
+    for (const auto &c: other.leg)
+        leg.emplace_back(c);
+}
+
+player &player::operator=(player other) {
+    std::swap(*this, other);
+    return *this;
+}
+
+void swap(player &p1, player &p2) {
+    std::swap(p1.anim, p2.anim);
+    std::swap(p1.leg, p2.leg);
+    std::swap(p1.money_, p2.money_);
+    std::swap(p1.points, p2.points);
+}
+

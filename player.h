@@ -28,6 +28,11 @@ public:
 
     [[nodiscard]] int getmoney() const;
 
+    [[maybe_unused]] player(const player &other);
+
+    player &operator=(player other);
+
+    friend void swap(player &f1, player &f2);
 
 };
 

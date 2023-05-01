@@ -6,6 +6,7 @@
 #define OOP_FERMA_H
 
 #include <vector>
+#include <utility>
 #include "unealta.h"
 #include "animal.h"
 #include "caine.h"
@@ -19,16 +20,19 @@ class ferma {
 public:
     void build();
 
-    ferma(std::vector<unealta> &crafty_, std::vector<std::shared_ptr<animal>> &ani, bool ok_);
+    ferma(std::string nume_, std::vector<unealta> &crafty_, std::vector<std::shared_ptr<animal>> &ani, bool ok_);
 
-    ferma(const ferma &other);
+    [[maybe_unused]] ferma(const ferma &other);
 
     ferma &operator=(ferma other);
 
-//    friend void swap(ferma &f1,ferma &f2);
+    friend void swap(ferma &f1, ferma &f2);
+
     friend std::ostream &operator<<(std::ostream &os, const ferma &z);
 
-    void vaca_sound();
+    void test_dynamic_cast();
+
+    [[maybe_unused]] [[nodiscard]] std::basic_string<char> getnume() const;
 
 };
 
