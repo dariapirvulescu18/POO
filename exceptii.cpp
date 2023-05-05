@@ -3,3 +3,7 @@
 //
 
 #include "exceptii.h"
+
+eroare_joc::~eroare_joc() {
+
+}

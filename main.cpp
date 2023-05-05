@@ -103,7 +103,7 @@ int main() {
         std::cout << HAYDAY.getnume() << f1.getnume() << "\n";
         pamant infertil(fructe, Alex, true);
         pamant::plant_fructs();
-        vaca eroare("", -3, vegetable);
+
     }
     catch (eroare_joc &exc) {
         std::cout << exc.what();

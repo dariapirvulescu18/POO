@@ -9,6 +9,8 @@
 
 class eroare_joc : public std::runtime_error {
     using std::runtime_error::runtime_error;
+public:
+    ~eroare_joc() override;
 };
 
 class eroare_animal : public eroare_joc {
