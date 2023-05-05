@@ -11,6 +11,7 @@
 #include "pamant.h"
 #include "vaca.h"
 #include "caine.h"
+#include "pisica.h"
 #include "exceptii.h"
 
 
@@ -45,6 +46,8 @@ int main() {
     vegetable.push_back(cartof);
     vegetable.push_back(rosie);
     vegetable.push_back(castravete);
+    pisica Luna("pisica", 5, false);
+    Luna.move();
     try {
 //        std::shared_ptr<vaca> MILKA = std::make_shared<vaca>("Milka", 3, vegetable);
         vaca MILKA("Milka", 3, vegetable);
