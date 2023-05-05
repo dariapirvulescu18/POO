@@ -9,6 +9,6 @@ std::ostream &operator<<(std::ostream &os, const fruct &fr) {
     return os;
 }
 
-[[maybe_unused]] fruct::fruct(std::string tip_, int kg_) : tip{std::move(tip_)}, kg{kg_} {}
+ fruct::fruct(std::string tip_, int kg_) : tip{std::move(tip_)}, kg{kg_} {}
 
 

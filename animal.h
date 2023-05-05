@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-
+#include "exceptii.h"
 class animal {
     std::string rasa;
     int products, dayswithoutfood, needtoeat;

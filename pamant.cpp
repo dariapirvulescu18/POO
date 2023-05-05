@@ -17,6 +17,10 @@ void pamant::growfaster() {
 
 }
 
+void pamant::plant_fructs() {
+    std::cout << "You want to plant some fruct?\n";
+}
+
 std::ostream &operator<<(std::ostream &os, const pamant &p) {
     for (const auto &l: p.leg)
         os << l << " ";
@@ -25,8 +29,14 @@ std::ostream &operator<<(std::ostream &os, const pamant &p) {
     return os;
 }
 
-pamant::pamant(std::vector<leguma> &leg_, player &farmer_, bool ok_) : leg{leg_}, farmer{farmer_}, ok{ok_} {
+pamant::pamant(std::vector<leguma> &leg_, player &farmer_, bool ok_) : leg{leg_}, farmer{farmer_}, ok{ok_} {}
 
+pamant::pamant(std::vector<fruct> &fr_, player &farmer, bool ok_) : fr(fr_), farmer(farmer), ok{ok_} {
+    if (fr.size() < 3)
+        throw eroare_pamant("You can't plant less than 3 fructs!\n");
 }
+
+
+
 
 

@@ -8,13 +8,13 @@
 #include <string>
 #include <iostream>
 
-class [[maybe_unused]] fruct {
+class fruct {
     std::string tip;
     int kg;
 public:
     friend std::ostream &operator<<(std::ostream &os, const fruct &fr);
 
-    [[maybe_unused]] fruct(std::string tip_, int kg_);
+    fruct(std::string tip_, int kg_);
 
 };
 

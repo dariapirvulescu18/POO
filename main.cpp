@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
-//#include <stdexcept>
 #include <memory>
+#include "fruct.h"
 #include "leguma.h"
 #include "animal.h"
 #include "player.h"
@@ -11,16 +11,18 @@
 #include "pamant.h"
 #include "vaca.h"
 #include "caine.h"
+#include "exceptii.h"
 
-//class eroare_stringuri :public std::runtime_error
-//{
-//    using std::runtime_error::runtime_error;
-//};
-//class eroare_numere: public std::logic_error{
-//    using std::logic_error::logic_error;
-//};
 
 int main() {
+    fruct zmeura("fructe de padure", 13);
+    fruct piersica("creste in copac", 6);
+    fruct mar("creste in copac", 8);
+    std::vector<fruct> fructe;
+
+    fructe.push_back(zmeura);
+    fructe.push_back(piersica);
+    fructe.push_back(mar);
     leguma cartof("potato", 3);
     leguma rosie("tomato", 5);
     leguma castravete("cucumber", 7);
@@ -43,60 +45,70 @@ int main() {
     vegetable.push_back(cartof);
     vegetable.push_back(rosie);
     vegetable.push_back(castravete);
-
-    std::shared_ptr<vaca> MILKA = std::make_shared<vaca>("Milka", 3, vegetable);
-    MILKA->feed();
-    MILKA->gain();
-    MILKA->become_hungry();
-
-    std::shared_ptr<vaca> LILY = std::make_shared<vaca>("Lily", 3, vegetable);
-
-    std::shared_ptr<caine> PUFI = std::make_shared<caine>("pufi", 4, 3);
-    PUFI->gain();
+    try {
+//        std::shared_ptr<vaca> MILKA = std::make_shared<vaca>("Milka", 3, vegetable);
+        vaca MILKA("Milka", 3, vegetable);
+        MILKA.feed();
+        MILKA.gain();
+        MILKA.become_hungry();
 
 
-    for (int i = 0; i < 8; i++) {
-        PUFI->become_hungry();
+//        std::shared_ptr<vaca> LILY = std::make_shared<vaca>("Lily", 3, vegetable);
+        vaca LILY("Lily", 3, vegetable);
+//        std::shared_ptr<caine> PUFI = std::make_shared<caine>("pufi", 4, 3);
+        caine PUFI("Pufi", 4, 3);
+        PUFI.gain();
+
+
+        for (int i = 0; i < 8; i++) {
+            PUFI.become_hungry();
+        }
+        PUFI.feed();
+        std::cout << PUFI.getName() << "\n";
+        std::vector<std::shared_ptr<animal>> farmanimal;
+
+        farmanimal.push_back(PUFI.clone());
+
+        farmanimal.push_back(MILKA.clone());
+        farmanimal.push_back(LILY.clone());
+
+
+        player Alex{vegetable, {
+                vaca("MILKA", 3, vegetable).clone(),
+                vaca("LILY", 3, vegetable).clone(),
+                caine("PUFI", 4, 3).clone()
+        }
+        };
+        Alex.gain_money();
+        unealta lopata("shovels", Alex, 5, 145, true);
+        unealta ciocan("hammers", Alex, 4, 100, true);
+        unealta cuie("nails", Alex, 10, 50, true);
+        lopata.buy();
+        ciocan.buy();
+        cuie.buy();
+        std::vector<unealta> crafts;
+        crafts.push_back(lopata);
+        crafts.push_back(ciocan);
+        crafts.push_back(cuie);
+        ferma LOLA("LOLA", crafts, farmanimal, true);
+        LOLA.build();
+        pamant fertil(vegetable, Alex, true);
+        fertil.growfaster();
+
+        MILKA.move();
+        PUFI.move();
+        LOLA.test_dynamic_cast();
+        ferma HAYDAY("HAYDAY", crafts, farmanimal, true), f1(HAYDAY);
+        HAYDAY = LOLA;
+        std::cout << HAYDAY.getnume() << f1.getnume() << "\n";
+        pamant infertil(fructe, Alex, true);
+        pamant::plant_fructs();
+        vaca eroare("", -3, vegetable);
     }
-    PUFI->feed();
-    std::cout << PUFI->getName() << "\n";
-    std::vector<std::shared_ptr<animal>> farmanimal;
-
-    farmanimal.push_back(PUFI);
-
-    farmanimal.push_back(MILKA);
-    farmanimal.push_back(LILY);
-
-
-    player Alex{vegetable, {
-            vaca("MILKA", 3, vegetable).clone(),
-            vaca("LILY", 3, vegetable).clone(),
-            caine("PUFI", 4, 3).clone()
+    catch (eroare_joc &exc) {
+        std::cout << exc.what();
     }
-    };
-    Alex.gain_money();
-    unealta lopata("shovels", Alex, 5, 145, true);
-    unealta ciocan("hammers", Alex, 4, 100, true);
-    unealta cuie("nails", Alex, 10, 50, true);
-    lopata.buy();
-    ciocan.buy();
-    cuie.buy();
-    std::vector<unealta> crafts;
-    crafts.push_back(lopata);
-    crafts.push_back(ciocan);
-    crafts.push_back(cuie);
-    ferma LOLA("LOLA", crafts, farmanimal, true);
-    LOLA.build();
-    pamant fertil(vegetable, Alex, true);
-    fertil.growfaster();
 
-
-    MILKA->move();
-    PUFI->move();
-    LOLA.test_dynamic_cast();
-//    player HAYDAY("HAYDAY",crafts,farmanimal,true),f1(HAYDAY);
-//    HAYDAY=LOLA;
-//    std::cout<<HAYDAY.getnume()<<f1.getnume()<<"\n";
 
     return 0;
 

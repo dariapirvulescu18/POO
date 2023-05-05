@@ -32,7 +32,7 @@ ferma::ferma(std::string nume_, std::vector<unealta> &crafty_, std::vector<std::
 }
 
 ferma &ferma::operator=(ferma other) {
-    std::swap(*this, other);
+    swap(*this, other);
     return *this;
 }
 
@@ -61,8 +61,8 @@ void ferma::test_dynamic_cast() {
     }
 }
 
-//[[maybe_unused]] std::basic_string<char> ferma::getnume() const {
-//    return nume;
-//}
+[[maybe_unused]] std::string ferma::getnume() const {
+    return nume;
+}
 
 

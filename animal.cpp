@@ -50,6 +50,10 @@ animal::animal(std::string rasa_, int nte) : rasa{std::move(rasa_)}, needtoeat{n
     hungry = false;
     energy = true;
     fed = false;
+    if (rasa.empty())
+        throw eroare_animal("The animal must have a name!\n");
+    if (nte <= 0)
+        throw eroare_animal("The animal must have a positive number fot its days to eat!\n");
 }
 
 animal::~animal() = default;
