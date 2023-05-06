@@ -17,9 +17,9 @@ int caine::gain() {
     if (days_to_defend <= 4) {
         happy = true;
         std::cout << "The farm is protected" << "\n";
-        return 0;
+
     }
-    return 1;
+    return 0;
 }
 
 void caine::move() const {

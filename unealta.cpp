@@ -42,3 +42,4 @@ unealta::unealta(std::string denumire_, player &anonimus_, int numar_, int objec
 [[nodiscard]] bool unealta::getBought() const {
     return bought;
 }
+

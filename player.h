@@ -28,7 +28,7 @@ public:
 
     [[nodiscard]] int getmoney() const;
 
-    [[maybe_unused]] player(const player &other);
+     player(const player &other);
 
     player &operator=(player other);
 

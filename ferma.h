@@ -17,12 +17,14 @@ class ferma {
     std::vector<std::shared_ptr<animal>> farm_animal;
     bool ok;
     std::string nume;
+    player jucator;
 public:
     void build();
 
-    ferma(std::string nume_, std::vector<unealta> &crafty_, std::vector<std::shared_ptr<animal>> &ani, bool ok_);
+    ferma(std::string nume_, player &jucator_, std::vector<unealta> &crafty_, std::vector<std::shared_ptr<animal>> &ani,
+          bool ok_);
 
-    [[maybe_unused]] ferma(const ferma &other);
+    ferma(const ferma &other);
 
     ferma &operator=(ferma other);
 
@@ -30,9 +32,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const ferma &z);
 
-    void test_dynamic_cast();
-
     [[maybe_unused]] [[nodiscard]] std::string getnume() const;
+//    void test_dynamic_cast();
+
+    void defend();
+
+    virtual ~ferma();
+
+    void move_all_animals();
 
 };
 

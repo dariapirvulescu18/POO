@@ -21,11 +21,11 @@ public:
 
     unealta(std::string denumire_, player &anonimus_, int numar_, int object_price_, bool want_);
 
-    explicit unealta(const std::string &denumire);
-
-    unealta();
-
-    explicit unealta(player &anonimus);
+//    explicit unealta(const std::string &denumire, player &anonimus);
+//
+//    unealta();
+//
+//    explicit unealta(player &anonimus);
 
     [[nodiscard]] bool getBought() const;
 

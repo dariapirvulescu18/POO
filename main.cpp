@@ -24,6 +24,7 @@ int main() {
     fructe.push_back(zmeura);
     fructe.push_back(piersica);
     fructe.push_back(mar);
+
     leguma cartof("potato", 3);
     leguma rosie("tomato", 5);
     leguma castravete("cucumber", 7);
@@ -46,35 +47,30 @@ int main() {
     vegetable.push_back(cartof);
     vegetable.push_back(rosie);
     vegetable.push_back(castravete);
-    pisica Luna("pisica", 5, false);
-    Luna.move();
+
+
     try {
-//        std::shared_ptr<vaca> MILKA = std::make_shared<vaca>("Milka", 3, vegetable);
+        pisica Luna("pisica", 5, false);
         vaca MILKA("Milka", 3, vegetable);
         MILKA.feed();
         MILKA.gain();
         MILKA.become_hungry();
 
-
-//        std::shared_ptr<vaca> LILY = std::make_shared<vaca>("Lily", 3, vegetable);
         vaca LILY("Lily", 3, vegetable);
-//        std::shared_ptr<caine> PUFI = std::make_shared<caine>("pufi", 4, 3);
         caine PUFI("Pufi", 4, 3);
         PUFI.gain();
-
-
         for (int i = 0; i < 8; i++) {
             PUFI.become_hungry();
         }
         PUFI.feed();
         std::cout << PUFI.getName() << "\n";
+
         std::vector<std::shared_ptr<animal>> farmanimal;
 
         farmanimal.push_back(PUFI.clone());
-
         farmanimal.push_back(MILKA.clone());
+        farmanimal.push_back(Luna.clone());
         farmanimal.push_back(LILY.clone());
-
 
         player Alex{vegetable, {
                 vaca("MILKA", 3, vegetable).clone(),
@@ -83,27 +79,31 @@ int main() {
         }
         };
         Alex.gain_money();
+
         unealta lopata("shovels", Alex, 5, 145, true);
         unealta ciocan("hammers", Alex, 4, 100, true);
         unealta cuie("nails", Alex, 10, 50, true);
         lopata.buy();
         ciocan.buy();
         cuie.buy();
+
         std::vector<unealta> crafts;
         crafts.push_back(lopata);
         crafts.push_back(ciocan);
         crafts.push_back(cuie);
-        ferma LOLA("LOLA", crafts, farmanimal, true);
+
+        ferma LOLA("LOLA", Alex, crafts, farmanimal, true);
         LOLA.build();
+        LOLA.defend();
+        LOLA.move_all_animals();
+
+
+//        ferma HAYDAY("HAYDAY",Alex,crafts, farmanimal, true), f1(HAYDAY);
+//        HAYDAY = LOLA;
+//        std::cout << HAYDAY.getnume() << f1.getnume() << "\n";
+
         pamant fertil(vegetable, Alex, true);
         fertil.growfaster();
-
-        MILKA.move();
-        PUFI.move();
-        LOLA.test_dynamic_cast();
-        ferma HAYDAY("HAYDAY", crafts, farmanimal, true), f1(HAYDAY);
-        HAYDAY = LOLA;
-        std::cout << HAYDAY.getnume() << f1.getnume() << "\n";
         pamant infertil(fructe, Alex, true);
         pamant::plant_fructs();
         vaca eroare("", -3, vegetable);
