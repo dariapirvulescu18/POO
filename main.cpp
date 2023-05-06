@@ -93,14 +93,13 @@ int main() {
         crafts.push_back(cuie);
 
         ferma LOLA("LOLA", Alex, crafts, farmanimal, true);
+        ferma HAYDAY("HAYDAY", Alex, crafts, farmanimal, true), f1(HAYDAY);
+        HAYDAY = LOLA;
+        std::cout << HAYDAY.getnume() << "\n" << f1.getnume() << "\n";
+
         LOLA.build();
         LOLA.defend();
         LOLA.move_all_animals();
-
-
-//        ferma HAYDAY("HAYDAY",Alex,crafts, farmanimal, true), f1(HAYDAY);
-//        HAYDAY = LOLA;
-//        std::cout << HAYDAY.getnume() << f1.getnume() << "\n";
 
         pamant fertil(vegetable, Alex, true);
         fertil.growfaster();

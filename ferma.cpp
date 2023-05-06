@@ -4,6 +4,8 @@
 
 #include "ferma.h"
 
+#include <utility>
+
 void ferma::build() {
     for (auto &a: farm_animal) {
         ok = true;
@@ -21,7 +23,7 @@ void ferma::build() {
 
 ferma::ferma(std::string nume_, player &jucator_, std::vector<unealta> &crafty_,
              std::vector<std::shared_ptr<animal>> &ani, bool ok_)
-        : crafty(std::move(crafty_)), farm_animal(std::move(ani)), ok(ok_), nume(std::move(nume_)),
+        : crafty(crafty_), farm_animal(ani), ok(ok_), nume(std::move(nume_)),
           jucator(jucator_) {}
 
 ferma::ferma(const ferma &other) : ok(other.ok), nume(other.nume), jucator(other.jucator) {
@@ -31,18 +33,19 @@ ferma::ferma(const ferma &other) : ok(other.ok), nume(other.nume), jucator(other
         crafty.emplace_back(c);
 }
 
-ferma &ferma::operator=(ferma other) {
-    swap(*this, other);
-    return *this;
-}
-
 void swap(ferma &f1, ferma &f2) {
     std::swap(f1.ok, f2.ok);
     std::swap(f1.nume, f2.nume);
     std::swap(f1.farm_animal, f2.farm_animal);
     std::swap(f1.crafty, f2.crafty);
-    std::swap(f1.jucator, f2.jucator);
+    swap(f1.jucator, f2.jucator);
 }
+
+ferma &ferma::operator=(ferma other) {
+    swap(*this, other);
+    return *this;
+}
+
 
 std::ostream &operator<<(std::ostream &os, const ferma &z) {
     for (const auto &c: z.crafty)

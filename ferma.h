@@ -11,6 +11,7 @@
 #include "animal.h"
 #include "caine.h"
 #include "vaca.h"
+#include "player.h"
 
 class ferma {
     std::vector<unealta> crafty;
