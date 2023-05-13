@@ -21,7 +21,7 @@ class pamant {
 public:
     void growfaster();
 
-    static void plant_fructs();
+    static void plant_fruit();
 
     friend std::ostream &operator<<(std::ostream &os, const pamant &p);
 

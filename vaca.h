@@ -12,6 +12,16 @@
 class vaca : public animal {
     std::vector<leguma> leg;
     bool fed;
+
+    void afisare(std::ostream &os) const override {
+        if (fed)
+            os << " vaca este hranita" << "\n";
+        else
+            os << "vaca nu este hranita " << "\n";
+        os << "Vaca poate manca " << leg.size() << " legume" << "\n";
+
+    }
+
 public:
     explicit vaca(const std::string &rasa = "cow", int nte = 3, const std::vector<leguma> &l = std::vector<leguma>());
 

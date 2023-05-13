@@ -10,6 +10,14 @@
 
 class pisica : public animal {
     bool sleepy;
+
+    void afisare(std::ostream &os) const override {
+        if (sleepy)
+            os << " pisica este somnoroasa" << "\n";
+        else
+            os << "pisica nu este somnoroasa " << "\n";
+    }
+
 public:
     pisica(const std::string &rasa, int nte, bool sleepy);
 

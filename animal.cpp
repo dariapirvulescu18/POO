@@ -6,6 +6,9 @@
 
 void animal::move() const {}
 
+void animal::afisare(std::ostream &os) const {
+    os << "The animal is " << rasa << "\n";
+}
 
 void animal::become_hungry() {
     dayswithoutfood++;
@@ -39,8 +42,9 @@ int animal::gain() {
 
 
 std::ostream &operator<<(std::ostream &os, const animal &anim) {
-    os << anim.rasa << " " << anim.products << anim.dayswithoutfood << anim.needtoeat << anim.hungry << anim.energy
-       << "\n";
+    os << anim.rasa << " " << anim.products << " " << anim.dayswithoutfood << " " << anim.needtoeat << " "
+       << anim.hungry << " " << anim.energy << "\n";
+    anim.afisare(os);
     return os;
 }
 

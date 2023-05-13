@@ -3,7 +3,9 @@
 ### Tema 0
 
 - [ ] Nume proiect (poate fi schimbat ulterior)
+- HAY DAY
 - [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+- jocul hay day este un joc de strategie in care jucatorul trebuie sa isi construiasca o ferma si sa o dezvolte
 
 ## Tema 1
 

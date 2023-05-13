@@ -14,7 +14,7 @@ class animal {
     std::string rasa;
     int products, dayswithoutfood, needtoeat;
     bool hungry, energy, fed;
-
+    virtual void afisare(std::ostream &os) const;
 public:
     virtual void feed();
 

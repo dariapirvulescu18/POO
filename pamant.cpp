@@ -17,8 +17,8 @@ void pamant::growfaster() {
 
 }
 
-void pamant::plant_fructs() {
-    std::cout << "You want to plant some fruct?\n";
+void pamant::plant_fruit() {
+    std::cout << "You want to plant some fruit?\n";
 }
 
 std::ostream &operator<<(std::ostream &os, const pamant &p) {

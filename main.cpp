@@ -104,8 +104,13 @@ int main() {
         pamant fertil(vegetable, Alex, true);
         fertil.growfaster();
         pamant infertil(fructe, Alex, true);
-        pamant::plant_fructs();
+        pamant::plant_fruit();
+        std::cout << Luna;
+        std::cout << PUFI;
+        std::cout << MILKA;
         vaca eroare("", -3, vegetable);
+
+
     }
     catch (eroare_joc &exc) {
         std::cout << exc.what();
