@@ -97,7 +97,7 @@ int main() {
         crafts.push_back(cuie);
 
         auto &HAYDAY = ferma::get_instance("HAYDAY", Alex, crafts, farmanimal, true);
-
+        std::cout << HAYDAY.getnume() << "\n";
 
         HAYDAY.build();
         HAYDAY.defend();
