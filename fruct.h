@@ -10,11 +10,16 @@
 
 class fruct {
     std::string tip;
-    int kg;
+    std::string culoare;
+    std::string gust;
+    int kg, pret;
+
+    friend class fruct_builder;
+
 public:
     friend std::ostream &operator<<(std::ostream &os, const fruct &fr);
 
-    fruct(std::string tip_, int kg_);
+    fruct() = default;
 
 };
 

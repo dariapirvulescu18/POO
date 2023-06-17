@@ -13,14 +13,18 @@
 #include "caine.h"
 #include "pisica.h"
 #include "exceptii.h"
-
+#include "fruct_builder.h"
+#include "unealta_factory.h"
 
 int main() {
-    fruct zmeura("fructe de padure", 13);
-    fruct piersica("creste in copac", 6);
-    fruct mar("creste in copac", 8);
-    std::vector<fruct> fructe;
+    auto &f = fruct_builder::get_instance();
 
+    fruct zmeura = f.tip_fruct("fructe de padure").culoare_fruct("rosie").gust_fruct("dulce").kg_fruct(13).pret_fruct(
+            5).build();
+    fruct piersica = f.culoare_fruct("galbena").gust_fruct("dulce").kg_fruct(6).pret_fruct(3).build();
+    fruct mar = f.tip_fruct("creste in copac").culoare_fruct("rosie").kg_fruct(8).pret_fruct(4).build();
+
+    std::vector<fruct> fructe;
     fructe.push_back(zmeura);
     fructe.push_back(piersica);
     fructe.push_back(mar);
@@ -79,27 +83,25 @@ int main() {
         }
         };
         Alex.gain_money();
-
-        unealta lopata("shovels", Alex, 5, 145, true);
-        unealta ciocan("hammers", Alex, 4, 100, true);
-        unealta cuie("nails", Alex, 10, 50, true);
-        lopata.buy();
-        ciocan.buy();
-        cuie.buy();
+//        auto &u_f=unealta_factory::get_instance();
+        unealta ciocan = unealta_factory::ciocan();
+        unealta lopata = unealta_factory::lopata();
+        unealta cuie = unealta_factory::cuie();
+        lopata.buy(Alex);
+        ciocan.buy(Alex);
+        cuie.buy(Alex);
 
         std::vector<unealta> crafts;
         crafts.push_back(lopata);
         crafts.push_back(ciocan);
         crafts.push_back(cuie);
 
-        ferma LOLA("LOLA", Alex, crafts, farmanimal, true);
-        ferma HAYDAY("HAYDAY", Alex, crafts, farmanimal, true), f1(HAYDAY);
-        HAYDAY = LOLA;
-        std::cout << HAYDAY.getnume() << "\n" << f1.getnume() << "\n";
+        auto &HAYDAY = ferma::get_instance("HAYDAY", Alex, crafts, farmanimal, true);
 
-        LOLA.build();
-        LOLA.defend();
-        LOLA.move_all_animals();
+
+        HAYDAY.build();
+        HAYDAY.defend();
+        HAYDAY.move_all_animals();
 
         pamant fertil(vegetable, Alex, true);
         fertil.growfaster();

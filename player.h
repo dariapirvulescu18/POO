@@ -34,6 +34,7 @@ public:
 
     friend void swap(player &f1, player &f2);
 
+
 };
 
 #endif //OOP_PLAYER_H

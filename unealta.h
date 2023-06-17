@@ -8,18 +8,18 @@
 #include "player.h"
 
 class unealta {
-    std::string denumire;
-    player &anonimus;
+    std::string denumire, viteza;
+
     int numar, object_price;
     bool want;
     int new_money{};
     bool bought;
 public:
-    void buy();
+    void buy(player &anonimus);
 
     friend std::ostream &operator<<(std::ostream &os, const unealta &une);
 
-    unealta(std::string denumire_, player &anonimus_, int numar_, int object_price_, bool want_);
+    unealta(std::string denumire_, std::string viteza, int numar_, int object_price_, bool want_);
 
 //    explicit unealta(const std::string &denumire, player &anonimus);
 //

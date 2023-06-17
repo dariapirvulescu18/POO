@@ -12,8 +12,9 @@
 #include "caine.h"
 #include "vaca.h"
 #include "player.h"
+#include "singleton.h"
 
-class ferma {
+class ferma : public singleton<ferma> {
     std::vector<unealta> crafty;
     std::vector<std::shared_ptr<animal>> farm_animal;
     bool ok;
@@ -25,11 +26,6 @@ public:
     ferma(std::string nume_, player &jucator_, std::vector<unealta> &crafty_, std::vector<std::shared_ptr<animal>> &ani,
           bool ok_);
 
-    ferma(const ferma &other);
-
-    ferma &operator=(ferma other);
-
-    friend void swap(ferma &f1, ferma &f2);
 
     friend std::ostream &operator<<(std::ostream &os, const ferma &z);
 
@@ -41,6 +37,8 @@ public:
     virtual ~ferma();
 
     void move_all_animals();
+    //singleton
+
 
 };
 
